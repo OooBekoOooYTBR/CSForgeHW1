@@ -35,21 +35,21 @@ public class navmeshmove : MonoBehaviour
     {
         if(!agent.isStopped)
         {
-            if(target != null && Vector3.Distance(transform.position, target.position) > 10f)
-        {
-            if (ebs != null) {
-                if(trg < Time.time)
-                {
-                    trg = Time.time + 2f;
-                    transform.LookAt(target.transform);
-                    ebs.EnBS();
-                } 
-            }
-        } else if (target != null && Vector3.Distance(transform.position, target.transform.position) > 0.5f)
-        {
+            if(target != null && Vector3.Distance(transform.position, target.position) >= 10f)
+            {
+                if (ebs != null) {
+                    if(trg < Time.time)
+                    {
+                        trg = Time.time + 1f;
+                        transform.LookAt(target.transform);
+                        ebs.EnBS();
+                    } 
+                }
+            } else if (target != null && Vector3.Distance(transform.position, target.position) > 0.5f)
+            {
             transform.LookAt(target.transform);
             transform.position += transform.forward * Time.deltaTime * speed;
-        }
+            }
         }
 
     }
