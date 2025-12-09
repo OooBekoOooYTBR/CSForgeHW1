@@ -13,7 +13,6 @@ public class ColorChangeBlock : MonoBehaviour
         blockRenderer = block.GetComponent<Renderer>();
     }
 
-    // Update is called once per frame
     public void ChangeColor()
     {
         if(Input.GetKeyDown(KeyCode.E))

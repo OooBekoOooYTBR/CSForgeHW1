@@ -10,13 +10,11 @@ public class RayCast : MonoBehaviour
     [SerializeField] private LayerMask blockLM;
     private RaycastHit hit;
 
-    // state for interaction (avoid calling actions every frame)
     private ColorChangeBlock currentColorBlock;
     private DoorSm currentDoor;
 
     void Update()
     {
-        // reset each frame
         currentColorBlock = null;
         currentDoor = null;
         if (InteractTxt != null) InteractTxt.gameObject.SetActive(false);
@@ -27,22 +25,20 @@ public class RayCast : MonoBehaviour
         {
             GameObject hitObj = hit.collider.gameObject;
 
-            // Eğer çarpılan obje blockLM içindeyse block kodunu hemen çalıştır
             if ((blockLM.value & (1 << hitObj.layer)) != 0)
             {
                 if (hitObj.TryGetComponent<ColorChangeBlock>(out ColorChangeBlock colorBlock))
                 {
-                    colorBlock.ChangeColor(); // block kodu anında çalışır
+                    colorBlock.ChangeColor(); 
                     if (InteractTxt != null)
                     {
-                        InteractTxt.text = "Renk değiştirildi";
+                        InteractTxt.text = "Renk değiştirmek için E'ye basın";
                         InteractTxt.gameObject.SetActive(true);
                     }
                 }
-                return; // block işlendi, daha fazla kontrol etme
+                return;
             }
 
-            // Kapıya bakılıyorsa etkileşim göster ve E ile aç/kapa
             if (hit.collider.TryGetComponent<DoorSm>(out DoorSm door))
             {
                 currentDoor = door;
